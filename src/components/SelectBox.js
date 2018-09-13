@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
-import {Tabs, Button} from 'antd'
+import {Tabs} from 'antd'
 import Dept from "./Dept";
 import User from "./User";
 import SelectSearch from "./SelectSearch";
@@ -15,6 +15,7 @@ export default class SelectBox extends Component {
         onFetchUser: PropTypes.func,
         onChange: PropTypes.func,
         height: PropTypes.number,
+        value: PropTypes.array,
     }
 
     constructor(props) {
@@ -32,10 +33,7 @@ export default class SelectBox extends Component {
 
     onSelected = (checkedItems) => {
         this.setState({checkedItems});
-    }
-
-    handleOk = () => {
-        this.props.onChange(this.state.checkedItems);
+        this.props.onChange(checkedItems);
     }
 
     handleSearch = (value) => {
@@ -75,9 +73,6 @@ export default class SelectBox extends Component {
                             onFetchUser={this.handleFetchUser}/>
                     </TabPane>
                 </Tabs>
-                <div style={{textAlign:'right', margin: '10px 10px -10px'}}>
-                    <Button type="primary" onClick={() => this.handleOk.bind(this)}>确定</Button>
-                </div>
             </div>
         )
     }

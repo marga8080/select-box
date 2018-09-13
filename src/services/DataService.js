@@ -410,7 +410,7 @@ function search4name(list, name) {
  * @returns {Promise}
  */
 export async function search(name) {
-    console.log(name);
+    //console.log(name);
     let orglist = [], userlist = [];
     org2list(orgData, orglist);
     user2list(userData, userlist);
@@ -428,10 +428,10 @@ export async function search(name) {
  * @returns {Promise}
  */
 export async function fetchDept(deptid) {
-    console.log("fetchDept", deptid);
+    //console.log("fetchDept", deptid);
     return new Promise((resolve) => {
         const data = findOrgChildren(orgData, deptid);
-        console.log("data", data)
+        //console.log("data", data)
         resolve(data);
     });
 }
@@ -442,10 +442,10 @@ export async function fetchDept(deptid) {
  * @returns {Promise}
  */
 export async function fetchUser(deptid, pageNo) {
-    console.log("pageNo", pageNo);
+    //console.log("pageNo", pageNo);
     return new Promise((resolve) => {
         const data = user2deptid(userData, deptid);
-        console.log("data", data)
+        //console.log("data", data)
         resolve(data);
     });
 }
