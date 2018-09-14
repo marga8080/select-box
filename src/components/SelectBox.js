@@ -3,7 +3,9 @@ import {PropTypes} from 'prop-types';
 import {Tabs} from 'antd'
 import Dept from "./Dept";
 import User from "./User";
+import Tag from "./Tag";
 import SelectSearch from "./SelectSearch";
+
 
 const TabPane = Tabs.TabPane;
 
@@ -13,6 +15,7 @@ export default class SelectBox extends Component {
         onSearch: PropTypes.func,
         onFetchDept: PropTypes.func,
         onFetchUser: PropTypes.func,
+        onFetchTag: PropTypes.func,
         onChange: PropTypes.func,
         height: PropTypes.number,
         value: PropTypes.array,
@@ -49,6 +52,10 @@ export default class SelectBox extends Component {
         return this.props.onFetchUser(deptId, pageNo);
     }
 
+    handleFetchTag = (pageNo) => {
+        return this.props.onFetchTag(pageNo);
+    }
+
     render() {
         const {checkedItems} = this.state;
 
@@ -71,6 +78,13 @@ export default class SelectBox extends Component {
                             onChecked={this.onSelected}
                             onFetchDept={this.handleFetchDept}
                             onFetchUser={this.handleFetchUser}/>
+                    </TabPane>
+                    <TabPane tab="标签" key="3">
+                        <Tag
+                            type={"tag"}
+                            checkedItems={checkedItems}
+                            onChecked={this.onSelected}
+                            onFetchTag={this.handleFetchTag}/>
                     </TabPane>
                 </Tabs>
             </div>

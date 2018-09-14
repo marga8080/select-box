@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Modal} from 'antd';
 import SelectBox from '../components/SelectBox';
-import {fetchDept, fetchUser, search} from "../services/DataService";
+import {fetchDept, fetchUser, fetchTag, search} from "../services/DataService";
 
 
 export default class SelectModal {
@@ -58,6 +58,10 @@ class SelectModalComponent extends Component {
         return fetchUser(deptId, pageNo);
     }
 
+    handleFetchTag = (pageNo) => {
+        return fetchTag(pageNo);
+    }
+
     handleChange = (value) => {
         console.log(value)
         this.setState({value})
@@ -97,6 +101,7 @@ class SelectModalComponent extends Component {
                                 onSearch={this.handleSearch}
                                 onFetchDept={this.handleFetchDept}
                                 onFetchUser={this.handleFetchUser}
+                                onFetchTag={this.handleFetchTag}
                             />
                         </div>
                     ) : null

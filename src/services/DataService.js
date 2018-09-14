@@ -250,6 +250,19 @@ const userData = [
     },
 ];
 
+const tagData = [
+    {
+        id: 't11',
+        name: '分级管理员11',
+        type: 'tag'
+    },
+    {
+        id: 't21',
+        name: '分级管理员21',
+        type: 'tag'
+    },
+]
+
 /**
  * 字符串反转
  * @param str
@@ -414,7 +427,7 @@ export async function search(name) {
     let orglist = [], userlist = [];
     org2list(orgData, orglist);
     user2list(userData, userlist);
-    let all = [...orglist, ...userlist];
+    let all = [...orglist, ...userlist, ...tagData];
     return new Promise((resolve) => {
         //setTimeout(() => {
             resolve(search4name(all, name));
@@ -446,6 +459,23 @@ export async function fetchUser(deptid, pageNo) {
     return new Promise((resolve) => {
         const data = user2deptid(userData, deptid);
         //console.log("data", data)
+        resolve(data);
+    });
+}
+
+
+
+export async function fetchTag(pageNo) {
+    //console.log("pageNo", pageNo);
+    return new Promise((resolve) => {
+        let data = [];
+        for (let i = 1; i <= 10; i++) {
+            let item = {};
+            item.name = "分级管理员" + pageNo + i;
+            item.id = "t" + pageNo + i;
+            item.type = "tag";
+            data.push(item);
+        }
         resolve(data);
     });
 }

@@ -11,6 +11,7 @@ const optionLabel = (item) => {
         <div>
             {item.type === "user" && <Icon type="user" />}
             {item.type === "dept" && <Icon type="folder" />}
+            {item.type === "tag" && <Icon type="tag" />}
             {item.name}
         </div>
     )
