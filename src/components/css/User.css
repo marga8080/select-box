@@ -1,0 +1,10 @@
+
+.list-item {
+  padding-left: 14px;
+  padding-right: 10px;
+}
+
+.list-item:hover {
+  background-color: lightcyan;
+
+}

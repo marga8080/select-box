@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
 import {Tree, Row, Col, Icon, List, Checkbox, Button, Spin, Divider} from 'antd';
+import  './css/User.css'
 
 const TreeNode = Tree.TreeNode;
 
@@ -70,21 +71,33 @@ export default class User extends Component {
         this.loadUsers(selectedKeys[0]);
     }
 
-    onChecked = (checkedValues) => {
-        this.setState({checkedValues});
-        let items = [];
-        checkedValues.map(value => {
-            let vls = value.split(spliter);
-            let item = {};
-            item.id = vls[0];
-            item.name = vls[1];
-            item.type = "user";
-            items.push(item);
-        });
+    // onChecked = (checkedValues) => {
+    //     this.setState({checkedValues});
+    //     let items = [];
+    //     checkedValues.map(value => {
+    //         let vls = value.split(spliter);
+    //         let item = {};
+    //         item.id = vls[0];
+    //         item.name = vls[1];
+    //         item.type = "user";
+    //         items.push(item);
+    //     });
+    //     let checkedItems = this.props.checkedItems;
+    //     // 非用户的item需要保留
+    //     checkedItems = checkedItems.filter(item => item.type !== "user");
+    //     this.props.onChecked([...checkedItems, ...items]);
+    // }
+
+    onClickCheckBoxItem(item) {
+        item.type = "user";
         let checkedItems = this.props.checkedItems;
-        // 非用户的item需要保留
-        checkedItems = checkedItems.filter(item => item.type !== "user");
-        this.props.onChecked([...checkedItems, ...items]);
+        let findres = checkedItems.find(it => it.type === item.type && it.id.toString() === item.id.toString());
+        if (findres) { //存在则取消选中
+            checkedItems = checkedItems.filter(it => !(it.type === item.type && it.id.toString() === item.id.toString()));
+        } else {
+            checkedItems.push(item);
+        }
+        this.props.onChecked(checkedItems);
     }
 
     loadUsers = (deptId) => {
@@ -162,10 +175,11 @@ export default class User extends Component {
 
         const renderItem = item => {
             return (
-                <List.Item>
-                    <Checkbox value={item.id + spliter + item.name} style={{marginLeft:'10px'}}>
-                        {item.name}
-                    </Checkbox>
+                <List.Item
+                    className={"list-item"}
+                    onClick={this.onClickCheckBoxItem.bind(this, item)}
+                    actions={[<Checkbox value={item.id + spliter + item.name} style={{marginLeft:'10px'}}/>]}>
+                    {item.name}
                 </List.Item>
             )
         };
@@ -184,7 +198,7 @@ export default class User extends Component {
                     </Tree>
                 </Col>
                 <Col span={12} style={{height: '100%', overflowY:'auto'}}>
-                    <Checkbox.Group style={{width:'100%'}} onChange={this.onChecked} value={this.state.checkedValues}>
+                    <Checkbox.Group style={{width:'100%'}} /**onChange={this.onChecked}**/ value={this.state.checkedValues}>
                         <List
                             split
                             loadMore={loadMore}
